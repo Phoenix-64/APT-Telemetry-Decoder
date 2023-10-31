@@ -1,4 +1,4 @@
-from apttelemetrydecoder import TelemetryGrabber
+from apt_tele_decode import TelemetryGrabber
 
 if __name__ == "__main__":
     grabber = TelemetryGrabber("raw2.png")
