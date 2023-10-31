@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
 import cv2
 
 
@@ -116,10 +115,6 @@ class TelemetryGrabber:
         tel_frame = np.median(tel_frame_chunk, axis=1)
         zero_frame = np.argmin(np.diff(tel_frame)) + 1
 
-
-
-
-
         # then create an n by 16 by 8 apt frame construction as follows:  atp_frame, telemetry_frame, line
         first_index, nr_blocks = TelemetryGrabber.cut_to_chunks(tel_frame, zero_frame, 16)
         apt_frame_chunk = np.zeros(shape=(nr_blocks, 16, 8))
@@ -136,12 +131,14 @@ class TelemetryGrabber:
         apt_frame = np.nanmedian(apt_frame_chunk, axis=(0, 2))
         return apt_frame, tel_raw_median
 
-
-
     def generate_telemetry(self):
         self.telemetry[0], self.telemetry_raw[0] = TelemetryGrabber.filter("A", self.img, self.max_stdv_lines)
         self.telemetry[1], self.telemetry_raw[1] = TelemetryGrabber.filter("B", self.img, self.max_stdv_lines)
         return self.telemetry, self.telemetry_raw
+
+    """
+    This is used to find the instrument channel transmitted
+    """
 
     def get_channel_type(self):
         if len(self.telemetry[0]) == 0:
@@ -151,9 +148,15 @@ class TelemetryGrabber:
         channel_a = TelemetryGrabber.find_nearest_index(self.telemetry[0][-8:], id_value_a)
         channel_b = TelemetryGrabber.find_nearest_index(self.telemetry[1][-8:], id_value_b)
         # !! The channel_a variable counts from 0 the numbering in online documentations counts from 1
-        print(f"Channel A, {channel_a + 1}, contains these frequency's: {TelemetryGrabber.channel_id_meaning[channel_a]}")
-        print(f"Channel B, {channel_b + 1}, contains these frequency's: {TelemetryGrabber.channel_id_meaning[channel_b]}")
+        print(
+            f"Channel A, {channel_a + 1}, contains these frequency's: {TelemetryGrabber.channel_id_meaning[channel_a]}")
+        print(
+            f"Channel B, {channel_b + 1}, contains these frequency's: {TelemetryGrabber.channel_id_meaning[channel_b]}")
         return channel_a, channel_b
+
+    """
+    To get a plot of the apt telemetry frame that was decoded
+    """
 
     def visualize_telemetry(self):
         if len(self.telemetry[0]) == 0:
