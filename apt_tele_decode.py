@@ -7,7 +7,7 @@ class TelemetryGrabber:
     channel_id_meaning = ("Ch 1 visible (0.58-0.68 µm)", "Ch 2 near-IR (0.725-1.0 µm)",
                           "Ch 3A Day near-IR (1.58-1.64 µm)",
                           "Ch 4 infrared (10.3-11.3 µm)",
-                          "Ch 5infrared (11.5-12.5 µm)"
+                          "Ch 5 infrared (11.5-12.5 µm)"
                           "Ch 3B Nigth infrared (3.55-3.93 µm)",)
     telemetry_field_meaning = ("Zero Modulation Frame", "Thermistor Temp #1", "Thermistor Temp #2",
                                "Thermistor Temp #3", "Thermistor Temp #4", "Patch Temp", "Back Scan",
@@ -355,13 +355,8 @@ class TelemetryGrabber:
             maps.append(ax[1].imshow(temp_filtered_b, cmap=cmap))
 
         if bars:
-            cax = fig.add_axes([maps[-1].axes.get_position().x1 + 0.01, maps[-1].axes.get_position().y0, 0.02,
-                                maps[-1].axes.get_position().height])
-            plt.colorbar(maps[-1], cax=cax)  # Similar to fig.colorbar(im, cax = cax)
-            #divider = make_axes_locatable(maps[-1].axes)
-            #cax = divider.append_axes("right", size="10%")
-            #plt.colorbar(maps[-1], cax=cax)
-
+            fig.colorbar(maps[-1])
+        fig.tight_layout()
         plt.show()
         return temp_imgs
 
