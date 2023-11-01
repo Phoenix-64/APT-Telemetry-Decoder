@@ -9,7 +9,7 @@ if __name__ == "__main__":
     telemetry, telemetry_raw = grabber.generate_telemetry()
     tel_a = telemetry[0]
     space = (209.80 - 6.25) / 0.8198
-    grabber.visualize_telemetry()
+    #grabber.visualize_telemetry()
     # gray level calibration of the image
     # lut_out are target values lut_in the ones found in calibration strip
     calib_value_arrangement = [8, 0, 1, 2, 3, 4, 5, 6, 7]
@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     art_tel = np.array([30.39, 57.98, 84.77, 111.31, 137.03, 163.08, 188.95,
                         214.42, 4.09, 95.14, 94.71, 94.30, 94.17, 89.37, 61.17, 111.78])
-
+    tel_new = (art_tel - 6.25) / 0.8198
     #tel_new = np.array([(i - 6.25) / 0.8198 for i in art_tel])
     Cprts = tel_new[9:13]
     # noaa 18 d values for temperature compensation
@@ -60,11 +60,11 @@ if __name__ == "__main__":
                      [833.2532, 0.253179, 0.999057]])
 
     Tbbs = ttrc[1][1] + ttrc[1][2] * Tbb
-    Nbb = (c1 * (861.891 ** 3)) / ((np.e ** ((c2 * ttrc[1][0]) / Tbbs)) - 1)
+    Nbb = (c1 * (861.89333333333333333333333333333333333333333333333333333333333333 ** 3)) / ((np.e ** ((c2 * ttrc[1][0]) / Tbbs)) - 1)
 
     # Ns is channel and satalite dependent
     Ns = -5.53  # for ch 4
-    Cs = space * 4
+    Cs = ((209.80 - 6.25) / 0.8198) * 4
     Cbb = tel_new[13] * 4
     Ce = 55 * 4  # image data * 4
 
@@ -74,17 +74,17 @@ if __name__ == "__main__":
 
     # Ns + (Nbb - Ns) * ((Cs - Ce) / (Cs - Cbb))
     Te_l = []
-    for i in range(55, 134):
-        Ce = i * 4
-        Nlin = RsNRC[0][0] + (Nbb - RsNRC[0][0]) * ((Cs - Ce) / (Cs - Cbb))
-        # only needed for ch 4 5 not 3b
-        Ncor = RsNRC[0][1] + RsNRC[0][2] * Nlin + RsNRC[0][3] * (Nlin ** 2)
-        Ne = Nlin + Ncor
+    #for i in range(55, 134):
+    Ce = 155.831 * 4
+    Nlin = RsNRC[0][0] + (Nbb - RsNRC[0][0]) * ((Cs - Ce) / (Cs - Cbb))
+    # only needed for ch 4 5 not 3b
+    Ncor = RsNRC[0][1] + RsNRC[0][2] * Nlin + RsNRC[0][3] * (Nlin ** 2)
+    Ne = Nlin + Ncor
 
-        # step 4 get blakcbody temp
-        Tes = (c2 * ttrc[1][0]) / np.log(1 + ((c1 * (ttrc[1][0] ** 3)) / Ne))
-        Te = (Tes - ttrc[1][1]) / ttrc[1][2]
-        Te_l.append(Te)
+    # step 4 get blakcbody temp
+    Tes = (c2 * ttrc[1][0]) / np.log(1 + ((c1 * (ttrc[1][0] ** 3)) / Ne))
+    Te = (Tes - ttrc[1][1]) / ttrc[1][2]
+        #Te_l.append(Te)
     # Te is now the black body tempreature at that point
 
     wdg10 = np.array([[95, 96, 94, 94, 97, 96, 95, 95],
