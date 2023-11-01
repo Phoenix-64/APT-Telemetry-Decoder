@@ -1,3 +1,5 @@
 numpy
 matplotlib
 opencv-python
+scikit-image
+PyWavelets
