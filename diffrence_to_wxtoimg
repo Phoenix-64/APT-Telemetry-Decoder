@@ -1,0 +1,51 @@
+Day day_16c.png
+-30 vs -17  vs dff 13
+6 vs 17 vs 13 dff 11
+11 vs 25 vs 15 dff 14
+
+Nigth nigth21.png
+11 vs 22 dff 11
+4 vs 15 dff 11
+-49 vs -39 dff 10
+
+
+noaa18c.png
+2 vs 14 dff 12
+-53 vs -44 dff 9
+
+noaa18_2c.png
+-39 vs -30 dff 9
+-60 vs -53 dff 7
+12 vs 24 dff 12
+
+raw0.png
+0 vs 13 dff 13
+-77 vs -85 dff -8
+6 vs 22 dff 16
+
+
+Precice
+day_16c.png
+
+
+scrappe x offset not accounted
+raw0.png
+592, 677: 7.9 vs 24.5
+116, 473: -36.6 vs -60.2
+546, 496: 1.7 vs 15
+
+day_16c.png
+361, 846: 4.5 vs 29.5
+199, 503: -27 vs -18.2
+
+coordinate matched
+-7.5 vs -17.5 dff 10
+-7.5 vs -18.6 dff 11.1
+-9.4 vs -12.1 dff 2.7
+
+12.7 vs -1.5 dff 14.2
+12.7 vs -1.5 dff 14.2
+11.9 vs -0.1 dff 12
+
+
+result ther is no linear corelation between the two

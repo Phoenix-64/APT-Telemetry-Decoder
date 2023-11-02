@@ -327,7 +327,10 @@ class TelemetryGrabber:
             else:
                 Te[1, idx] = x
 
+
         img_b = self.img[:, img_pos[1][0]:img_pos[1][1]]
+        # x size equal to wxtoimg for direct value comp
+        #img_b = self.img[:, 1039:]
 
         temp_img_b = Te[1][img_b] - 273.15
         temp_filtered_b = cv2.bilateralFilter(temp_img_b.astype(np.float32), filter_size, 75, 75)
@@ -338,7 +341,7 @@ class TelemetryGrabber:
 
         if np.mean(Te[0]) > 3:
             img_a = self.img[:, img_pos[0][0]:img_pos[0][1]]
-            temp_img_a = Te[1][img_a] - 273.15
+            temp_img_a = Te[0][img_a] - 273.15
             temp_filtered_a = cv2.bilateralFilter(temp_img_a.astype(np.float32), filter_size, 75, 75)
             temp_imgs.append(temp_img_a)
             temp_imgs.append(temp_filtered_a)
