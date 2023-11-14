@@ -299,7 +299,7 @@ class TelemetryGrabber:
             else:
                 continue
             Tbbs[i] = ttrcl[1] + ttrcl[2] * Tbb[i]
-            Nbb[i] = ((TelemetryGrabber.c1 * (861.8933333333333333333333333333333333333333333333333333333333333333 ** 3))
+            Nbb[i] = ((TelemetryGrabber.c1 * (ttrcl[0] ** 3))
                       / ((np.e ** ((TelemetryGrabber.c2 * ttrcl[0]) / Tbbs[i])) - 1))
             Nlin[i] = Rs[0] + (Nbb[i] - Rs[0]) * ((Cs[i] - (TelemetryGrabber.Ce * 4)) / (Cs[i] - Cbb[i]))
             Ncor[i] = Rs[1] + Rs[2] * Nlin[i] + Rs[3] * (Nlin[i] ** 2)
